@@ -4,3 +4,12 @@
 <h1>
 Better test.
 </h1>
+
+<ul>
+	<li>Never fear, straight-up HTML is here</li>
+	<li>Note that this *.wiki page does not need the header</li>
+	* and I can intermingle elements of WikiSyntax
+	<li>But let's try to stick to the basics, mmkay?</li>
+</ul>
+
+Although, I don't know how exactly we're going to implement wikilinks...
