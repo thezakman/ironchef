@@ -1,0 +1,15 @@
+#summary This is title to the first wiki page
+#labels Featured
+
+= Introduction =
+
+Adding content, just like the man says... O.O
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+  * But I don't _wanna_!
