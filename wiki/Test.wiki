@@ -1,4 +1,4 @@
-#summary This is title to the first wiki page
+#summary This is the title to THE FUCKING TEST PAGE WOOT WOOT
 #labels Featured
 
 <h1>
@@ -7,9 +7,11 @@ Better test.
 
 <ul>
 	<li>Never fear, straight-up HTML is here</li>
-	<li>Note that this *.wiki page does not need the header</li>
-	* and I can intermingle elements of WikiSyntax
+	<li>Note that this .wiki page does not need the header</li>
+	* and I can intermingle elements of !WikiSyntax?
 	<li>But let's try to stick to the basics, mmkay?</li>
 </ul>
 
 Although, I don't know how exactly we're going to implement wikilinks...
+
+Also, moose testicles.
