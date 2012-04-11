@@ -1,9 +1,11 @@
-#summary This is title to the first wiki page
+#summary Home
 #labels Featured
 
 = Introduction =
 
-Adding content, just like the man says... O.O
+Written by David Morgan-Mar, Chef is widely regarded as the most esoteric of programming languages. Designed with a consistent theme, it implements most of the essential actions of a programming language (and is Turing-complete). (The only thing it appears to be missing is support for file i/o, but such is not required for Turing-completeness.)
+
+Before you continue, make a point to check out the official specification for Chef over on dangermouse.net, linked to in the sidebar. [continued locally via svn]
 
 
 = Details =
@@ -12,7 +14,3 @@ Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
-  * But I don't _wanna_!
-
-
-<b>test!</b>
