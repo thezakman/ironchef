@@ -33,5 +33,14 @@ Done.
 Attempting to overwrite this variable will result in an error, even if the redefinition is trivial:
 >>> chef.define('nil', '{nil}')
 CFGError: Redefinition of nil is prohibited.
+
+The fruits of your work are embodied in the methods .check() and .parse().
+.check() checks a string for obedience of the grammer, returning True or False
+>>> chef.check("Whee!")
+False
+
+.parse() will return a deep list sorting the given string.
+>>> chef.parse(hello_world)
+["Hello World Souffle", "Comments...", "Ingredients.", ["ING1", "ING2"], "Method.", ["CMD1", "CMD2"], "Serves 1.", [[AUX1], [AUX2]]]
 """
 	pass
