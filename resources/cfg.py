@@ -12,10 +12,12 @@ Example usage:
 Done.
 
 This sets the main layout of the Chef file. Notice that keywords are encased by {}
-	and * means '0 or more' and () means 'optional' (potentially none, but at most one).
+	and * means '0 or more' and ? means 'optional' (potentially none, but at most one).
+  The + operator indicates '1 or more'.
+  To group expressions (eg to get one or more 'Hello's) one would use parentheses: (Hello)+
 	(The master can also be set directly through the constructor.)
 	All symbols can be escaped as normal using a backslash.
->>> chef.define('{Recipe}\n\n({Serves}\n\n){Recipe}*', master=True)
+>>> chef.define('{Recipe}\n\n?({Serves}\n\n){Recipe}*', master=True)
 Done.
 
 >>> chef.define('Recipe', '{Title}.\n\n{Comments}Ingredients.\n{Ingredient}*\n\nMethod.\n{Command}*')
