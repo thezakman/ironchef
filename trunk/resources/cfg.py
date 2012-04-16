@@ -1,46 +1,99 @@
 # PyCFG
 
 class CFG:
-	"""This is an attempt to incorporate straight CFG into Python in a regular-expression style.
+	"""This is an attempt to incorporate straight CFG into a Pythonic regular-expression style.
 
 Example usage:
 >>> chef = CFG()
 Done.
 
-This sets the main layout of the Chef file. Notice that tokens are encased by {} and * means '0 or more' and () means 'optional' (potentially none, but at most one). (The master can also be set directly through the constructor.)
-All symbols can be escaped as normal using a backslash.
+This sets the main layout of the Chef file. Notice that keywords are encased by {}
+	and * means '0 or more' and () means 'optional' (potentially none, but at most one).
+	(The master can also be set directly through the constructor.)
+	All symbols can be escaped as normal using a backslash.
 >>> chef.define('{Recipe}\n\n({Serves}\n\n){Recipe}*', master=True)
 Done.
 
 >>> chef.define('Recipe', '{Title}.\n\n{Comments}Ingredients.\n{Ingredient}*\n\nMethod.\n{Command}*')
 Done.
 
-Simple variables' CFGs are set thusly:
+Simple keywords' CFGs are set thusly:
 >>> chef.define('Comments', '{Sentence}*\n\n')
 Done.
 
-Variables can have more than one definition:
+Keywords can have more than one definition:
 >>> chef.define('Comments', ['{Sentence}*\n\n', 'poop'])
 Done.
 
 Or you can simply add a definition:
 >>> chef.define('Comments', 'poop', add=True)
 
-There is a protected variable with CFG called nil to terminate recursive definitions.
+There is a protected keyword within CFG called nil to terminate recursive definitions.
 >>> chef.define('Comments', ['{Sentence}.', '{Sentence}. {Comments}', '{nil}']
 Done.
 
-Attempting to overwrite this variable will result in an error, even if the redefinition is trivial:
+Attempting to overwrite this variable will result in an error,
+	even if the redefinition is trivial:
 >>> chef.define('nil', '{nil}')
 CFGError: Redefinition of nil is prohibited.
 
 The fruits of your work are embodied in the methods .check() and .parse().
-.check() checks a string for obedience of the grammer, returning True or False
->>> chef.check("Whee!")
+
+.contains() checks a string for obedience of the grammer, returning True or False
+>>> chef.contains("Whee!")
 False
 
 .parse() will return a deep list sorting the given string.
 >>> chef.parse(hello_world)
-["Hello World Souffle", "Comments...", "Ingredients.", ["ING1", "ING2"], "Method.", ["CMD1", "CMD2"], "Serves 1.", [[AUX1], [AUX2]]]
+["Hello World Souffle", "Comments...", "Ingredients.", ["ING1", "ING2"],
+	"Method.", ["CMD1", "CMD2"], "Serves 1.", [[AUX1], [AUX2]]]
+
+The CFG class can also return a regular expression.
+>>> chef.as_regex()
+Wut?
 """
-	pass
+	def __init__(self, master_pattern=""):
+		# Subpatterns of the grammar
+		self.patterns = dict()
+		
+		# Set the master pattern of the grammar
+		self.patterns[master] = self.master_pattern
+		
+		# Set the terminal pattern
+		self.patterns['nil'] = None
+		
+		# Set 'sigma', the collection of all valid terminal tokens
+		# For memory-ness, could this be specified by the user to be dynamically defined?
+		self.sigma = list()
+	
+	# overload with __get_item__
+	def define(self, keyword, pattern, add=False):
+	"""Adds the given keyword to the grammer with the specified pattern.
+	
+	If add is specified, the pattern will be appended as opposed to replaced.
+	"""
+		pass
+	
+	# overload __in__ keyword
+	def contains(self, string, subpattern=master):
+	"""Tests to see if the string given is in the set of strings described of this CFG."""
+		# The use of recursion in this buddy is awesome.
+		# Calling check on the string will check through the string as normal,
+		# recursing on any keywords it finds until the string is empty.
+		pass
+	
+	# returns a list whose elements are those explicitly defined
+	def parse(self, string, subpattern=master):
+	"""Returns a representative list form of the string.
+	
+	This function returns a list whose elements are those
+	explicitly defined within the subpattern; every element deferred via keyword
+	will be inserted as another list.
+	
+	Recursive, no?
+	"""
+		pass
+	
+	# omg... I don't wanna...
+	def as_regex(self):
+		pass
