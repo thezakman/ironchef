@@ -83,7 +83,6 @@ Wut?
 	def __repr__(self):
 		return "Patterns: " + str(self.patterns) + "\n" + "Sigma: " + str(self.sigma)
 	
-	# overload with __get_item__
 	def define(self, keyword, pattern, add=False):
 		"""Adds the given keyword to the grammer with the specified pattern.
 	
@@ -124,7 +123,6 @@ Wut?
 		else:
 			raise Exception("Unable to set pattern : key not string")
 	
-	# overload __in__ keyword
 	def contains(self, string, subpattern='__master__'):
 		"""Tests to see if the string given is in the set of strings described of this CFG."""
 		# The use of recursion in this buddy is awesome.
