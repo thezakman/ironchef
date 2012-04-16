@@ -1,5 +1,9 @@
 # PyCFG
 
+def d(str):
+	#raw_input(str)
+	pass
+
 class CFG:
 	"""This is an attempt to incorporate straight CFG into a Pythonic regular-expression style.
 
@@ -52,12 +56,12 @@ The CFG class can also return a regular expression.
 >>> chef.as_regex()
 Wut?
 """
-	def __init__(self, master_pattern=""):
+	def __init__(self, master_pattern=None):
 		# Subpatterns of the grammar
 		self.patterns = dict()
 		
 		# Set the master pattern of the grammar
-		self.patterns[master] = self.master_pattern
+		self.patterns['__master__'] = master_pattern
 		
 		# Set the terminal pattern
 		self.patterns['nil'] = None
@@ -65,26 +69,70 @@ Wut?
 		# Set 'sigma', the collection of all valid terminal tokens
 		# For memory-ness, could this be specified by the user to be dynamically defined?
 		self.sigma = list()
+		
+		self.__contains__ = self.contains
+		self.__getitem__ = self.get_pattern
+		self.__setitem__ = self.set_pattern
+		d("CFG created successfully.")
+	
+	def __str__(self):
+		return str(self.patterns['__master__'])
+	
+	def __repr__(self):
+		return "Patterns: " + str(self.patterns) + "\n" + "Sigma: " + str(self.sigma)
 	
 	# overload with __get_item__
 	def define(self, keyword, pattern, add=False):
-	"""Adds the given keyword to the grammer with the specified pattern.
+		"""Adds the given keyword to the grammer with the specified pattern.
 	
-	If add is specified, the pattern will be appended as opposed to replaced.
-	"""
-		pass
+		If add is specified, the pattern will be appended as opposed to replaced.
+		"""
+		if add:
+			if isinstance(pattern, list):
+				self.set_pattern(keyword, self.get_pattern(keyword) + pattern)
+			elif isinstance(pattern, str):
+				self.set_pattern(keyword, self.get_pattern(keyword) + [pattern])
+			else:
+				raise Exception("Invalid argument : pattern neither list nor string")
+		else:
+			self.set_pattern[keyword] = [pattern]
+	
+	def get_pattern(self, key):
+		return self.patterns[key]
+	
+	def set_pattern(self, key, pattern):
+		d("in set")
+		if isinstance(key, str):
+			d("key is instance of str")
+			if isinstance(pattern, str):
+				d("pattern is instance of str")
+				self.patterns[key] = [pattern]
+			elif isinstance(pattern, list):
+				d("pattern is instance of list")
+				allstrings = True
+				for s in pattern:
+					allstrings = allstrings and isinstance(s, str)
+				if allstrings:
+					d("all els are instances of str")
+					self.patterns[key] = pattern
+				else:
+					raise Exception("Unable to set pattern : One or more arguments not of string type")
+			else:
+				raise Exception("Unable to set pattern : value neither list nor string")
+		else:
+			raise Exception("Unable to set pattern : key not string")
 	
 	# overload __in__ keyword
-	def contains(self, string, subpattern=master):
-	"""Tests to see if the string given is in the set of strings described of this CFG."""
+	def contains(self, string, subpattern='__master__'):
+		"""Tests to see if the string given is in the set of strings described of this CFG."""
 		# The use of recursion in this buddy is awesome.
 		# Calling check on the string will check through the string as normal,
 		# recursing on any keywords it finds until the string is empty.
 		pass
 	
 	# returns a list whose elements are those explicitly defined
-	def parse(self, string, subpattern=master):
-	"""Returns a representative list form of the string.
+	def parse(self, string, subpattern='__master__'):
+		"""Returns a representative list form of the string.
 	
 	This function returns a list whose elements are those
 	explicitly defined within the subpattern; every element deferred via keyword
