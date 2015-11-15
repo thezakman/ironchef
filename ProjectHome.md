@@ -1,0 +1,1 @@
+This is an interpreter (written in Python) for the esoteric language 'Chef' (specification by David Morgan-Mar linked to in the sidebar).
